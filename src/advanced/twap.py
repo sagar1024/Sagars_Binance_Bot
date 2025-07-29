@@ -1,26 +1,14 @@
 import time
-from src.config import get_binance_client
-from src.logger import log_info, log_error
-from src.utils import validate_symbol, validate_quantity
+from src.market_orders import place_market_order
+from src.logger import log_info
 
-def place_twap_orders(symbol, side, quantity, chunks, interval_seconds):
-    client = get_binance_client()
+def place_twap_order(symbol, side, quantity, intervals, delay):
+    quantity = float(quantity)
+    slice_qty = quantity / intervals
 
-    if not validate_symbol(client, symbol):
-        log_error(f"Invalid symbol: {symbol}")
-        return
+    log_info(f"Placing TWAP order: {intervals} intervals of {slice_qty} every {delay}s")
 
-    try:
-        chunk_quantity = round(float(quantity) / int(chunks), 6)
-        for i in range(int(chunks)):
-            order = client.futures_create_order(
-                symbol=symbol,
-                side=side.upper(),
-                type="MARKET",
-                quantity=chunk_quantity
-            )
-            log_info(f"[TWAP] Order {i+1}/{chunks} placed: {order}")
-            if i < chunks - 1:
-                time.sleep(int(interval_seconds))
-    except Exception as e:
-        log_error(f"Failed during TWAP execution: {e}")
+    for i in range(intervals):
+        log_info(f"Placing TWAP slice {i+1}/{intervals}")
+        place_market_order(symbol, side, slice_qty)
+        time.sleep(delay)

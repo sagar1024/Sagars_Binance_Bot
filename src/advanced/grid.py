@@ -1,35 +1,13 @@
-from src.config import get_binance_client
-from src.logger import log_info, log_error
-from src.utils import validate_symbol, validate_price, validate_quantity
+from src.limit_orders import place_limit_order
+from src.logger import log_info
 
-def place_grid_orders(symbol, side, lower_price, upper_price, grid_count, quantity_per_order):
-    client = get_binance_client()
+def place_grid_orders(symbol, side, quantity, start_price, price_interval, num_orders):
+    log_info(f"Placing Grid Strategy: {num_orders} orders from {start_price} with interval {price_interval}")
 
-    if not all([
-        validate_symbol(client, symbol),
-        validate_price(lower_price),
-        validate_price(upper_price),
-        validate_quantity(quantity_per_order),
-    ]):
-        log_error("Invalid input for Grid strategy.")
-        return
+    start_price = float(start_price)
+    price_interval = float(price_interval)
 
-    try:
-        lower = float(lower_price)
-        upper = float(upper_price)
-        step = (upper - lower) / (int(grid_count) - 1)
-        quantity = float(quantity_per_order)
-
-        for i in range(int(grid_count)):
-            price = round(lower + i * step, 2)
-            order = client.futures_create_order(
-                symbol=symbol,
-                side=side.upper(),
-                type="LIMIT",
-                timeInForce="GTC",
-                quantity=quantity,
-                price=price
-            )
-            log_info(f"[Grid] Limit order placed at {price}: {order}")
-    except Exception as e:
-        log_error(f"Failed to place grid orders: {e}")
+    for i in range(num_orders):
+        price = start_price + (i * price_interval)
+        log_info(f"Placing limit order at {price}")
+        place_limit_order(symbol, side, quantity, price)
