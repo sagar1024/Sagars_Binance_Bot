@@ -14,16 +14,26 @@ client.FUTURES_URL = BASE_URL
 #         log_error(f"Symbol validation failed: {e}")
 #         return False
 
+# def is_valid_symbol(symbol):
+#     try:
+#         exchange_info = client.futures_exchange_info()
+#         symbols = [s["symbol"] for s in exchange_info.get("symbols", [])]
+#         return symbol.upper() in symbols
+#     except Exception as e:
+#         if hasattr(e, 'message'):
+#             log_error(f"Symbol validation failed: {e.message}")
+#         else:
+#             log_error(f"Symbol validation failed: {e}")
+#         return False
+
 def is_valid_symbol(symbol):
     try:
         exchange_info = client.futures_exchange_info()
-        symbols = [s["symbol"] for s in exchange_info.get("symbols", [])]
-        return symbol.upper() in symbols
+        all_symbols = [s["symbol"] for s in exchange_info.get("symbols", [])]
+        #print("Available symbols:", all_symbols)  # Debug
+        return symbol.upper() in all_symbols
     except Exception as e:
-        if hasattr(e, 'message'):
-            log_error(f"Symbol validation failed: {e.message}")
-        else:
-            log_error(f"Symbol validation failed: {e}")
+        log_error(f"Symbol validation failed: {e}")
         return False
 
 def is_valid_side(side):

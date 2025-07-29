@@ -8,4 +8,3 @@ API_SECRET = os.getenv("BINANCE_API_SECRET")
 
 #BASE_URL = os.getenv("BINANCE_API_URL", "https://testnet.binancefuture.com")
 BASE_URL = 'https://testnet.binancefuture.com/fapi'
-
