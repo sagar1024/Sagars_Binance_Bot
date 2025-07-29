@@ -1,39 +1,37 @@
 #Binance Futures does not support native OCO, but we'll simulate it with two separate orders
-
-from binance.client import Client
-from src.config import API_KEY, API_SECRET, TESTNET
-from src.utils import validate_symbol, validate_quantity, validate_price
+from src.config import get_binance_client
 from src.logger import log_info, log_error
+from src.utils import validate_symbol, validate_quantity, validate_price
 
-def place_oco_order(symbol, quantity, tp_price, sl_price):
+def place_oco_order(symbol, quantity, price, stop_price, stop_limit_price):
+    client = get_binance_client()
+
+    if not all([
+        validate_symbol(client, symbol, spot=True),
+        validate_quantity(quantity),
+        validate_price(price),
+        validate_price(stop_price),
+        validate_price(stop_limit_price)
+    ]):
+        log_error("Invalid input for OCO order.")
+        return
+
     try:
-        client = Client(API_KEY, API_SECRET, testnet=TESTNET)
-        symbol = validate_symbol(symbol)
-        quantity = validate_quantity(quantity)
-        tp_price = validate_price(tp_price)
-        sl_price = validate_price(sl_price)
-
-        # Take profit
-        tp_order = client.futures_create_order(
-            symbol=symbol,
-            side="SELL",
-            type="LIMIT",
+        order = client.create_oco_order(
+            symbol=symbol.upper(),
+            side='SELL',  # OCO only supports SELL
             quantity=quantity,
-            price=tp_price,
-            timeInForce="GTC"
+            price=price,  # Limit price
+            stopPrice=stop_price,
+            stopLimitPrice=stop_limit_price,
+            stopLimitTimeInForce='GTC'
         )
-
-        # Stop loss
-        sl_order = client.futures_create_order(
-            symbol=symbol,
-            side="SELL",
-            type="STOP_MARKET",
-            stopPrice=sl_price,
-            quantity=quantity
-        )
-
-        log_info(f"OCO simulated. TP: {tp_order}, SL: {sl_order}")
-        print("✅ OCO (TP & SL) Orders Placed.")
+        log_info(f"OCO Order Placed: {order}")
     except Exception as e:
-        log_error(f"OCO order error: {e}")
-        print(f"❌ Error: {e}")
+        log_error(f"Failed to place OCO order: {e}")
+
+#Binance OCO rules:
+
+#Only SELL OCO orders are allowed
+#Only available on Spot market
+#All prices must be valid, and stop-limit price must be close to stop price

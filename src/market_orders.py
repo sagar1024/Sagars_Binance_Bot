@@ -1,24 +1,25 @@
-from binance.client import Client
-from src.config import API_KEY, API_SECRET, TESTNET
-from src.utils import validate_symbol, validate_quantity
+from src.config import get_binance_client
 from src.logger import log_info, log_error
+from src.utils import validate_symbol, validate_quantity
 
 def place_market_order(symbol, side, quantity):
-    try:
-        client = Client(API_KEY, API_SECRET, testnet=TESTNET)
-        symbol = validate_symbol(symbol)
-        quantity = validate_quantity(quantity)
-        side = side.upper()
+    client = get_binance_client()
 
-        order = client.futures_create_order(
+    if not validate_symbol(client, symbol):
+        log_error(f"Invalid symbol: {symbol}")
+        return
+
+    if not validate_quantity(quantity):
+        log_error(f"Invalid quantity: {quantity}")
+        return
+
+    try:
+        response = client.futures_create_order(
             symbol=symbol,
-            side=side,
+            side=side.upper(),
             type="MARKET",
             quantity=quantity
         )
-
-        log_info(f"Market order placed: {order}")
-        print("✅ Market Order Executed.")
+        log_info(f"Market order placed: {response}")
     except Exception as e:
-        log_error(f"Market order error: {e}")
-        print(f"❌ Error: {e}")
+        log_error(f"Failed to place market order: {e}")

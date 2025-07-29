@@ -1,25 +1,38 @@
-from src.config import VALID_SYMBOLS
+from binance.exceptions import BinanceAPIException
+from src.logger import log_error
 
-def validate_symbol(symbol):
-    symbol = symbol.upper()
-    if symbol not in VALID_SYMBOLS:
-        raise ValueError(f"Invalid symbol: {symbol}")
-    return symbol
+# def validate_symbol(client, symbol):
+#     try:
+#         info = client.futures_exchange_info()
+#         symbols = [s["symbol"] for s in info["symbols"]]
+#         return symbol in symbols
+#     except BinanceAPIException as e:
+#         log_error(f"Error fetching exchange info: {e}")
+#         return False
+
+def validate_symbol(client, symbol, spot=False):
+    try:
+        if spot:
+            exchange_info = client.get_exchange_info()
+        else:
+            exchange_info = client.futures_exchange_info()
+        symbols = [s['symbol'] for s in exchange_info['symbols']]
+        return symbol.upper() in symbols
+    except Exception as e:
+        log_error(f"Symbol validation failed: {e}")
+        return False
+
 
 def validate_quantity(quantity):
     try:
         q = float(quantity)
-        if q <= 0:
-            raise ValueError
-        return q
-    except:
-        raise ValueError("Quantity must be a positive number")
+        return q > 0
+    except ValueError:
+        return False
 
 def validate_price(price):
     try:
         p = float(price)
-        if p <= 0:
-            raise ValueError
-        return p
-    except:
-        raise ValueError("Price must be a positive number")
+        return p > 0
+    except ValueError:
+        return False

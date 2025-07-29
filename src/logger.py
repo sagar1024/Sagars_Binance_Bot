@@ -1,17 +1,17 @@
 import logging
 
-logger = logging.getLogger("BinanceBot")
-logger.setLevel(logging.DEBUG)
+# Setup logger
+logging.basicConfig(
+    filename="bot.log",
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S"
+)
 
-formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+def log_info(message):
+    logging.info(message)
+    print(f"[INFO] {message}")
 
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(formatter)
-
-file_handler = logging.FileHandler("bot.log")
-file_handler.setFormatter(formatter)
-
-# Avoid duplicate handlers if re-imported
-if not logger.handlers:
-    logger.addHandler(console_handler)
-    logger.addHandler(file_handler)
+def log_error(message):
+    logging.error(message)
+    print(f"[ERROR] {message}")
