@@ -44,9 +44,7 @@ bash
 cd Sagars_Binance_Bot
 ```
 
-3. Install dependencies:
-
-Run this to install all required Python packages.
+3. Install dependencies: Run this to install all required Python packages.
 
 ```
 bash
