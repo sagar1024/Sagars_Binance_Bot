@@ -7,7 +7,7 @@ This is a command-line interface (CLI) trading bot built for the Binance USDT-M 
 
 1. CLI-based interface for order placement
 2. Market and Limit order execution (core functionality)
-3. Advanced order strategies: Stop-Limit orders, One-Cancels-the-Other (OCO) orders, TWAP (Time-Weighted Average Price), Grid Trading Strategy
+3. Advanced order strategies: Stop-Limit, OCO, TWAP and Grid
 4. Input validation for symbols, sides, prices, and quantities
 5. Structured logging for all actions including API responses and errors
 6. Organized project structure for easy extension and debugging
