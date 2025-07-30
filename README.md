@@ -63,5 +63,5 @@ python cli.py
 5. Follow the on-screen prompts to select the order type, trading pair, side, price, quantity, and other details.
 6. All logs will be recorded in the bot.log file located in the root project directory.
 
-### DEVELOPED BY:
-## Sagar Gurung
+
+## DEVELOPED BY - Sagar Gurung
