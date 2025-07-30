@@ -64,4 +64,4 @@ python cli.py
 6. All logs will be recorded in the bot.log file located in the root project directory.
 
 
-## DEVELOPED BY - Sagar Gurung
+#### Developed by - Sagar Gurung
