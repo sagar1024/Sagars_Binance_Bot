@@ -1,4 +1,4 @@
-# Sagar's Binance Futures Order Bot
+# Sagar's Binance Futures Bot
 
 ## Introduction
 This is a command-line interface (CLI) trading bot built for the Binance USDT-M Futures Testnet. The bot allows users to place multiple types of orders including Market, Limit, and advanced strategies like Stop-Limit, OCO, TWAP, and Grid trading. The goal is to provide a modular, extensible, and well-logged system to simulate automated trading logic using the Binance Futures API.
