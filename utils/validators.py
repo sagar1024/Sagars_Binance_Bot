@@ -1,26 +1,39 @@
-from binance.client import Client
-from src.config import API_KEY, API_SECRET, BASE_URL
-from src.logger import log_error
+# from binance.client import Client
+# from src.config import API_KEY, API_SECRET, BASE_URL
+# from src.logger import log_error
 
-client = Client(API_KEY, API_SECRET)
-client.FUTURES_URL = BASE_URL
+# client = Client(API_KEY, API_SECRET)
+# client.FUTURES_URL = BASE_URL
 
-def is_valid_symbol(symbol):
+# def is_valid_symbol(symbol):
+#     try:
+#         exchange_info = client.futures_exchange_info()
+#         all_symbols = [s["symbol"] for s in exchange_info.get("symbols", [])]
+#         #print("Available symbols:", all_symbols)  # Debug
+#         return symbol.upper() in all_symbols
+#     except Exception as e:
+#         log_error(f"Symbol validation failed: {e}")
+#         return False
+
+# def is_valid_side(side):
+#     return side.upper() in ["BUY", "SELL"]
+
+# def is_positive_float(value):
+#     try:
+#         val = float(value)
+#         return val > 0
+#     except ValueError:
+#         return False
+
+import requests
+from src.config import BASE_URL
+from src.logger import logger
+
+def validate_symbol(symbol: str) -> bool:
     try:
-        exchange_info = client.futures_exchange_info()
-        all_symbols = [s["symbol"] for s in exchange_info.get("symbols", [])]
-        #print("Available symbols:", all_symbols)  # Debug
-        return symbol.upper() in all_symbols
+        response = requests.get(f"{BASE_URL}/fapi/v1/exchangeInfo")
+        symbols = [s["symbol"] for s in response.json()["symbols"]]
+        return symbol.upper() in symbols
     except Exception as e:
-        log_error(f"Symbol validation failed: {e}")
-        return False
-
-def is_valid_side(side):
-    return side.upper() in ["BUY", "SELL"]
-
-def is_positive_float(value):
-    try:
-        val = float(value)
-        return val > 0
-    except ValueError:
+        logger.error(f"Symbol validation failed: {e}")
         return False
