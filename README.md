@@ -31,16 +31,16 @@ This is a command-line interface (CLI) trading bot built for the Binance USDT-M 
 
 1. Clone the repository:
 
-```
 bash
+```
 git init
 git clone https://github.com/sagar1024/Sagars_Binance_Bot.git
 ```
 
 2. Navigate to the project directory:
 
-```
 bash
+```
 cd Sagars_Binance_Bot
 ```
 
@@ -48,15 +48,15 @@ cd Sagars_Binance_Bot
 
 Run this to install all required Python packages.
 
-```
 bash
+```
 pip install -r requirements.txt
 ```
 
 4. Navigate to the src directory:
 
-```
 bash
+```
 cd src
 python cli.py
 ```
