@@ -29,17 +29,40 @@ This is a command-line interface (CLI) trading bot built for the Binance USDT-M 
 
 ## How to Run the Bot
 
-1. Install dependencies: Use pip install -r requirements.txt in your terminal.
-2. Navigate to the src directory.
-3. Run the CLI by executing the main script
+1. Clone the repository:
 
 ```
 bash
+git init
+git clone https://github.com/sagar1024/Sagars_Binance_Bot.git
+```
+
+2. Navigate to the project directory:
+
+```
+bash
+cd Sagars_Binance_Bot
+```
+
+3. Install dependencies:
+
+Run this to install all required Python packages.
+
+```
+bash
+pip install -r requirements.txt
+```
+
+4. Navigate to the src directory:
+
+```
+bash
+cd src
 python cli.py
 ```
 
-4. Follow the prompts to select order type, pair, side, price, etc.
-5. All logs will be stored in bot.log.
+5. Follow the on-screen prompts to select the order type, trading pair, side, price, quantity, and other details.
+6. All logs will be recorded in the bot.log file located in the root project directory.
 
 ### Author
 ##### Sagar Gurung
