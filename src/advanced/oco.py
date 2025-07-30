@@ -1,4 +1,6 @@
-#OCO (One Cancels the Other) orders are not supported on Binance Futures via the /fapi/v1/order endpoint, but we can simulate it manually by placing two orders: a Take-Profit and Stop-Loss, and cancelling the other once one gets filled. This implementation simulates OCO logic (manual pseudo-OCO).
+#OCO (One Cancels the Other) orders are not supported on Binance Futures via the /fapi/v1/order endpoint
+#But we can simulate it manually by placing two orders: a Take-Profit and Stop-Loss, and cancelling the other once one gets filled
+#This implementation simulates OCO logic (manual pseudo-OCO).
 
 from binance_client import BinanceFuturesREST
 from logger import get_logger
@@ -9,7 +11,7 @@ client = BinanceFuturesREST()
 def place_oco_simulated(symbol, side, quantity, take_profit_price, stop_loss_price):
     opposite_side = "SELL" if side == "BUY" else "BUY"
 
-    # Take-Profit Limit Order
+    #Take-Profit Limit Order
     tp_payload = {
         "symbol": symbol,
         "side": opposite_side,
@@ -21,7 +23,7 @@ def place_oco_simulated(symbol, side, quantity, take_profit_price, stop_loss_pri
         "recvWindow": 10000
     }
 
-    # Stop-Loss Market Order
+    #Stop-Loss Market Order
     sl_payload = {
         "symbol": symbol,
         "side": opposite_side,
