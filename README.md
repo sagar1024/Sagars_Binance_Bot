@@ -12,42 +12,30 @@ This is a command-line interface (CLI) trading bot built for the Binance USDT-M 
 5. One-Cancels-the-Other (OCO) orders
 6. TWAP (Time-Weighted Average Price)
 7. Grid Trading Strategy
+8. Input validation for symbols, sides, prices, and quantities
+9. Structured logging for all actions including API responses and errors
+10. Organized project structure for easy extension and debugging
 
-Input validation for symbols, sides, prices, and quantities
+## Tech Stack
 
-Structured logging for all actions including API responses and errors
+1. Python
+2. Binance USDT-M Futures Testnet API (REST)
+3. requests and hmac for secure API communication
+4. argparse and input() for CLI interaction
+5. logging module for maintaining log files
 
-Organized project structure for easy extension and debugging
+## API Setup Instructions
 
-Tech Stack
+1. Sign up for a Binance Futures Testnet account.
 
-Python
+2. Generate API Key and Secret Key from the API management section.
 
-Binance USDT-M Futures Testnet API (REST)
+3. Store your credentials in a .env file or inject them as environment variables: BINANCE_API_KEY, BINANCE_SECRET_KEY
 
-requests and hmac for secure API communication
+4. Use only the Binance Futures Testnet base URL for all endpoints: https://testnet.binancefuture.com
 
-argparse and input() for CLI interaction
+## Project Folder Structure
 
-logging module for maintaining log files
-
-API Setup Instructions
-
-Sign up for a Binance Futures Testnet account.
-
-Generate API Key and Secret Key from the API management section.
-
-Store your credentials in a .env file or inject them as environment variables:
-
-BINANCE_API_KEY
-
-BINANCE_SECRET_KEY
-
-Use only the Binance Futures Testnet base URL for all endpoints:
-
-https://testnet.binancefuture.com
-
-Project Folder Structure
 project_root/
 ├── src/
 │ ├── config.py
@@ -66,21 +54,19 @@ project_root/
 ├── README.md
 └── report.pdf
 
-How to Run the Bot
+## How to Run the Bot
 
-Install dependencies:
+1. Install dependencies: Use pip install -r requirements.txt in your terminal.
+2. Navigate to the src directory.
+3. Run the CLI by executing the main script
 
-Use pip install -r requirements.txt in your terminal.
+```
+bash
+python cli.py
+```
 
-Navigate to the src directory.
+4. Follow the prompts to select order type, pair, side, price, etc.
+5. All logs will be stored in bot.log.
 
-Run the CLI by executing the main script (cli.py).
-
-Follow the prompts to select order type, pair, side, price, etc.
-
-All logs will be stored in bot.log.
-
-Author
-Sagar G.
-Passionate about algorithmic trading and backend systems.
-
+### Author
+##### Sagar Gurung
