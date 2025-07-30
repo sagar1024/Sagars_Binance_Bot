@@ -26,7 +26,7 @@ This is a command-line interface (CLI) trading bot built for the Binance USDT-M 
 
 2. Generate API Key and Secret Key from the API management section.
 
-3. Store your credentials in a .env file or inject them as environment variables: BINANCE_API_KEY, BINANCE_SECRET_KEY
+3. Store your credentials in a .env file or inject them as environment variables: API_KEY, SECRET_KEY
 
 4. Use only the Binance Futures Testnet base URL for all endpoints: https://testnet.binancefuture.com
 
