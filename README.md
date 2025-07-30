@@ -14,7 +14,7 @@ This is a command-line interface (CLI) trading bot built for the Binance USDT-M 
 
 ## Tech Stack
 
-1. Python
+1. Python 3.9
 2. Binance USDT-M Futures Testnet API (REST)
 3. requests and hmac for secure API communication
 4. argparse and input() for CLI interaction
