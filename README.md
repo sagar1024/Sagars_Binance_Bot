@@ -23,32 +23,9 @@ This is a command-line interface (CLI) trading bot built for the Binance USDT-M 
 ## API Setup Instructions
 
 1. Sign up for a Binance Futures Testnet account.
-
 2. Generate API Key and Secret Key from the API management section.
-
 3. Store your credentials in a .env file or inject them as environment variables: API_KEY, SECRET_KEY
-
 4. Use only the Binance Futures Testnet base URL for all endpoints: https://testnet.binancefuture.com
-
-## Project Folder Structure
-
-project_root/
-├── src/
-│ ├── config.py
-│ ├── logger.py
-│ ├── cli.py
-│ ├── market_orders.py
-│ ├── limit_orders.py
-│ ├── stop_limit.py
-│ ├── oco.py
-│ ├── twap.py
-│ ├── grid.py
-│ └── utils/
-│ └── validators.py
-├── bot.log
-├── requirements.txt
-├── README.md
-└── report.pdf
 
 ## How to Run the Bot
 
